@@ -25,12 +25,19 @@ namespace UnitySampleAssets._2D
 
 		private bool doubleJump = false;
 
+		// Audio
+		private AudioSource source;
+		private float lowPitchRange = 0.5f;
+		private float highPitchRange = 1.5f;
+		public AudioClip jumpSound;
+
         private void Awake()
         {
             // Setting up references.
             groundCheck = transform.Find("GroundCheck");
             ceilingCheck = transform.Find("CeilingCheck");
             anim = GetComponent<Animator>();
+			source = GetComponent<AudioSource>();
         }
 
 
@@ -96,6 +103,9 @@ namespace UnitySampleAssets._2D
 				rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
 
                 rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+
+				float vol = Random.Range (lowPitchRange,highPitchRange);
+				source.PlayOneShot(jumpSound, vol);
 
 				// Disable double jumping after you've done it once
 				if (! grounded)
