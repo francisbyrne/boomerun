@@ -4,12 +4,17 @@ using System.Collections;
 public class SpawnScript : MonoBehaviour {
 
 	public GameObject [] obj;
+	public bool firstSpawn = false;
 	public float spawnMin = 1f;
 	public float spawnMax = 2f;
 
 	void Start ()
 	{
-			Spawn ();
+		if (firstSpawn) {
+				Spawn ();
+		} else {
+				Invoke ("Spawn", Random.Range (spawnMin, spawnMax));
+		}
 	}
 
 	void Spawn ()
